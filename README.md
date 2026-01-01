@@ -20,7 +20,6 @@ The projects are organized into two main categories:
 📦 Third-Semester-Projects
  ┣ 📂 games
  ┗ 📂 websites
-
 ```
 
 ---
