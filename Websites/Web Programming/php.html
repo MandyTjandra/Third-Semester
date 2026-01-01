@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Dasar PHP</title>
+    <link rel="icon" type="image/png" href="Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="materi-body">
+
+    <div class="materi-wrapper">
+        <a href="index.html" class="back-to-home-dark" title="Kembali ke Halaman Utama">
+            <i class="fas fa-arrow-left"></i> Kembali ke Home
+        </a>
+        <div class="container">
+            <header class="materi-header">
+                <h1>Materi Dasar PHP</h1>
+                <p>Pelajari bahasa pemrograman server-side untuk membangun aplikasi web dinamis.</p>
+            </header>
+
+            <div class="materi-content">
+                <section id="pengenalan">
+                    <h2>Apa itu PHP?</h2>
+                    <p><strong>PHP (Hypertext Preprocessor)</strong> adalah bahasa pemrograman server-side yang digunakan untuk membuat website dinamis. Berbeda dengan HTML, CSS, dan JavaScript yang berjalan di browser (client-side), PHP dijalankan di server dan hasilnya dikirim ke browser sebagai HTML.</p>
+                    
+                    <div class="info-box">
+                        <strong>💡 Tahukah Anda?</strong><br>
+                        PHP digunakan oleh lebih dari 77% website di internet, termasuk Facebook, Wikipedia, dan WordPress!
+                    </div>
+
+                    <h3 style="font-size: 1.3em; color: #0056b3; margin-top: 20px;">Keunggulan PHP:</h3>
+                    <ul class="feature-list">
+                        <li>Gratis dan open-source</li>
+                        <li>Mudah dipelajari untuk pemula</li>
+                        <li>Terintegrasi baik dengan database (MySQL, PostgreSQL)</li>
+                        <li>Cross-platform (Windows, Linux, macOS)</li>
+                        <li>Komunitas besar dan dokumentasi lengkap</li>
+                    </ul>
+                </section>
+
+                <section id="persiapan">
+                    <h2>Persiapan Environment</h2>
+                    <p>Untuk menjalankan PHP, Anda memerlukan server lokal. Berikut adalah beberapa pilihan:</p>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Software</th>
+                                <th>Platform</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>XAMPP</strong></td>
+                                <td>Windows, Linux, macOS</td>
+                                <td>Paling populer dan mudah digunakan</td>
+                            </tr>
+                            <tr>
+                                <td><strong>WAMP</strong></td>
+                                <td>Windows</td>
+                                <td>Khusus untuk Windows</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MAMP</strong></td>
+                                <td>macOS</td>
+                                <td>Khusus untuk Mac</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Laragon</strong></td>
+                                <td>Windows</td>
+                                <td>Modern dan cepat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="note-box">
+                        <strong>⚠️ Catatan Penting:</strong><br>
+                        PHP harus dijalankan melalui server (localhost), tidak bisa dibuka langsung seperti HTML. File PHP harus disimpan di folder htdocs (XAMPP) atau www (WAMP/Laragon).
+                    </div>
+                </section>
+
+                <section id="sintaks-dasar">
+                    <h2>Sintaks Dasar PHP</h2>
+                    <p>Kode PHP ditulis di antara tag <code>&lt;?php</code> dan <code>?&gt;</code></p>
+                    <pre><code>&lt;?php
+// Ini adalah komentar satu baris
+
+/* Ini adalah
+   komentar multi baris */
+
+// Menampilkan teks
+echo "Hello, World!";
+
+// Atau menggunakan print
+print "Selamat datang di PHP!";
+?&gt;</code></pre>
+                    <h3 class="output-title">Output:</h3>
+                    <div class="output">
+                        Hello, World!<br>
+                        Selamat datang di PHP!
+                    </div>
+                </section>
+
+                <section id="variabel">
+                    <h2>Variabel & Tipe Data</h2>
+                    <p>Variabel di PHP diawali dengan tanda <code>$</code> dan bersifat case-sensitive.</p>
+                    <pre><code>&lt;?php
+// Variabel
+$nama = "Budi";
+$umur = 25;
+$tinggi = 175.5;
+$aktif = true;
+
+// Menampilkan variabel
+echo "Nama: " . $nama . "&lt;br&gt;";
+echo "Umur: $umur tahun&lt;br&gt;";
+
+// Tipe data
+$angka = 100;           // Integer
+$desimal = 10.5;        // Float
+$teks = "Hello";        // String
+$benar = true;          // Boolean
+$kosong = null;         // NULL
+$array = [1, 2, 3];     // Array
+?&gt;</code></pre>
+                    <h3 class="output-title">Output:</h3>
+                    <div class="output">
+                        Nama: Budi<br>
+                        Umur: 25 tahun
+                    </div>
+                </section>
+
+                <section id="operator">
+                    <h2>Operator</h2>
+                    <p>PHP memiliki berbagai operator untuk melakukan operasi.</p>
+                    <pre><code>&lt;?php
+// Operator Aritmatika
+$a = 10;
+$b = 5;
+echo $a + $b;  // 15
+
+// Operator Perbandingan
+$x = 10;
+$y = "10";
+var_dump($x == $y);   // true (nilai sama)
+var_dump($x === $y);  // false (nilai dan tipe berbeda)
+
+// Operator Logika
+var_dump(true && false);  // false (AND)
+
+// Operator String
+$nama_depan = "Budi";
+$nama_belakang = "Santoso";
+$nama_lengkap = $nama_depan . " " . $nama_belakang; // Budi Santoso
+?&gt;</code></pre>
+                </section>
+
+                <section id="kondisi">
+                    <h2>Kondisi (If-Else)</h2>
+                    <p>Digunakan untuk membuat keputusan berdasarkan kondisi tertentu.</p>
+                    <pre><code>&lt;?php
+$nilai = 85;
+
+if ($nilai >= 90) {
+    echo "Grade: A";
+} elseif ($nilai >= 80) {
+    echo "Grade: B";
+} else {
+    echo "Grade: D";
+}
+?&gt;</code></pre>
+                    <h3 class="output-title">Output:</h3>
+                    <div class="output">
+                        Grade: B
+                    </div>
+                </section>
+
+                <section id="perulangan">
+                    <h2>Perulangan (Loop)</h2>
+                    <p>Digunakan untuk mengulang blok kode beberapa kali.</p>
+                    <pre><code>&lt;?php
+// For Loop
+for ($i = 1; $i <= 3; $i++) {
+    echo "Iterasi ke-$i&lt;br&gt;";
+}
+
+// Foreach (untuk array)
+$buah = ["Apel", "Jeruk", "Mangga"];
+foreach ($buah as $item) {
+    echo "- $item&lt;br&gt;";
+}
+?&gt;</code></pre>
+                    <h3 class="output-title">Output:</h3>
+                    <div class="output">
+                        Iterasi ke-1<br>
+                        Iterasi ke-2<br>
+                        Iterasi ke-3<br>
+                        <br>
+                        - Apel<br>
+                        - Jeruk<br>
+                        - Mangga
+                    </div>
+                </section>
+                
+                <section id="form-handling">
+                    <h2>Form Handling</h2>
+                    <p>PHP sangat baik dalam memproses data dari form HTML.</p>
+                    <pre><code>&lt;!-- HTML Form --&gt;
+&lt;form action="proses.php" method="POST"&gt;
+    &lt;input type="text" name="nama"&gt;
+    &lt;button type="submit"&gt;Kirim&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- proses.php --&gt;
+&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = htmlspecialchars($_POST['nama']);
+    if (empty($nama)) {
+        echo "Nama harus diisi!";
+    } else {
+        echo "Terima kasih, $nama!";
+    }
+}
+?&gt;</code></pre>
+                </section>
+
+                <section id="database">
+                    <h2>Koneksi Database (MySQL)</h2>
+                    <p>PHP dapat terhubung dengan database untuk menyimpan dan mengambil data.</p>
+                    <pre><code>&lt;?php
+// 1. Koneksi ke Database (MySQLi)
+$conn = mysqli_connect("localhost", "root", "", "belajar_php");
+if (!$conn) { die("Koneksi gagal: " . mysqli_connect_error()); }
+
+// 2. SELECT - Mengambil data
+$sql = "SELECT * FROM users";
+$result = mysqli_query($conn, $sql);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row['nama'] . " - " . $row['email'] . "&lt;br&gt;";
+}
+
+mysqli_close($conn);
+?&gt;</code></pre>
+
+                    <div class="note-box">
+                        <strong>⚠️ Keamanan:</strong><br>
+                        Selalu gunakan <strong>Prepared Statements</strong> untuk mencegah SQL Injection pada aplikasi nyata!
+                    </div>
+                </section>
+
+                <section class="more-info">
+                    <h3>Ingin Belajar Lebih Lengkap?</h3>
+                    <p>Materi di atas adalah dasar-dasar PHP. Untuk panduan yang lebih mendalam dan praktik langsung, kunjungi referensi terpercaya berikut:</p>
+                    <a href="https://www.w3schools.com/php/" target="_blank" rel="noopener noreferrer"><strong>Lihat Tutorial PHP Lengkap di W3Schools &rarr;</strong></a><br><br>
+                    <a href="https://www.php.net/manual/en/" target="_blank" rel="noopener noreferrer"><strong>Dokumentasi Resmi PHP &rarr;</strong></a><br><br>
+                    <a href="https://phptherightway.com/" target="_blank" rel="noopener noreferrer"><strong>PHP: The Right Way (Best Practices) &rarr;</strong></a>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

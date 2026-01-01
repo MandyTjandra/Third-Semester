@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bouncing Ball</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      text-align: center;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    #scoreBoard {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    canvas {
+      background: #111;
+      display: block;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      max-width: 100%;
+      height: auto;
+    }
+    #controls {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      touch-action: manipulation;
+    }
+    #shakeBtn {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+    }
+    #speedBtn {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+    }
+    .btn:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1rem;
+      }
+      #scoreBoard {
+        font-size: 1.5rem;
+        padding: 10px 20px;
+      }
+      .btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>🟡 Press space to shake, click to increase speed!</h2>
+  <div id="scoreBoard">Score: <span id="score">0</span></div>
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+  
+  <div id="controls">
+    <button id="shakeBtn" class="btn">⚡ Shake</button>
+    <button id="speedBtn" class="btn">🚀 Speed</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const scoreDisplay = document.getElementById("score");
+
+    let x = 100, y = 100;
+    let dx = 1, dy = 1;
+    const radius = 20;
+    let color = getRandomColor();
+    let speedMultiplier = 1;
+    const friction = 0.99;
+    let score = 0;
+
+    function getRandomColor() {
+      return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    }
+
+    function updateScore() {
+      score++;
+      scoreDisplay.textContent = score;
+      // Score animation
+      scoreDisplay.parentElement.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        scoreDisplay.parentElement.style.transform = 'scale(1)';
+      }, 150);
+    }
+
+    function shakeEffect() {
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          x += (Math.random() - 0.5) * 15;
+          y += (Math.random() - 0.5) * 15;
+        }, i * 30);
+      }
+    }
+
+    function increaseSpeed() {
+      speedMultiplier += 1;
+    }
+
+    // --- Keyboard controls ---
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        shakeEffect();
+      }
+    });
+
+    // --- Canvas click for speed ---
+    canvas.addEventListener("click", () => {
+      increaseSpeed();
+    });
+
+    // --- Mobile buttons ---
+    document.getElementById("shakeBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      shakeEffect();
+    });
+
+    document.getElementById("speedBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      increaseSpeed();
+    });
+
+    // Prevent double-tap zoom on buttons (mobile)
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        btn.click();
+      });
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw ball
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.closePath();
+
+      // --- Movement ---
+      x += dx * speedMultiplier;
+      y += dy * speedMultiplier;
+
+      // --- Horizontal bounce ---
+      if (x + radius >= canvas.width) {
+        x = canvas.width - radius - 1;
+        dx = -Math.abs(dx);
+        color = getRandomColor();
+        updateScore();
+      } else if (x - radius <= 0) {
+        x = radius + 1;
+        dx = Math.abs(dx);
+        color = getRandomColor();
+        updateScore();
+      }
+
+      // --- Vertical bounce ---
+      if (y + radius >= canvas.height) {
+        y = canvas.height - radius - 1;
+        dy = -Math.abs(dy);
+        color = getRandomColor();
+        updateScore();
+      } else if (y - radius <= 0) {
+        y = radius + 1;
+        dy = Math.abs(dy);
+        color = getRandomColor();
+        updateScore();
+      }
+
+      // --- Friction ---
+      if (speedMultiplier > 1) {
+        speedMultiplier *= friction;
+        if (speedMultiplier < 1) speedMultiplier = 1;
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>

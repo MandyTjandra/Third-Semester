@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Dasar JavaScript</title>
+    <link rel="icon" type="image/png" href="Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="materi-body">
+
+    <div class="materi-wrapper">
+        <a href="index.html" class="back-to-home-dark" title="Kembali ke Halaman Utama">
+            <i class="fas fa-arrow-left"></i> Kembali ke Home
+        </a>
+        <div class="container">
+            <header class="materi-header">
+                <h1>Materi Dasar JavaScript</h1>
+                <p>Pelajari bahasa pemrograman untuk membuat website interaktif dan dinamis.</p>
+            </header>
+
+            <div class="materi-content">
+                <section id="pengenalan">
+                    <h2>Apa itu JavaScript?</h2>
+                    <p>JavaScript adalah bahasa pemrograman yang digunakan untuk membuat halaman web menjadi interaktif.
+                        Dengan JavaScript, Anda dapat merespons aksi pengguna, memanipulasi HTML dan CSS, serta membuat
+                        aplikasi web yang dinamis.</p>
+                </section>
+
+                <section id="variabel">
+                    <h2>Variabel & Tipe Data</h2>
+                    <p>Variabel digunakan untuk menyimpan data. Di JavaScript, gunakan <code>let</code>,
+                        <code>const</code>, atau <code>var</code> untuk mendeklarasikan variabel.</p>
+                    <pre><code>// Mendeklarasikan variabel
+let nama = "Budi";
+const umur = 25;
+let isActive = true;
+
+// Tipe data
+let angka = 100;           // Number
+let teks = "Hello";        // String
+let benar = true;          // Boolean
+let kosong = null;         // Null
+let tidakTerdefinisi;      // Undefined</code></pre>
+                    <h3 class="output-title">Demo Interaktif:</h3>
+                    <div class="output">
+                        <button class="demo-button" onclick="demoVariabel()">Tampilkan Variabel</button>
+                        <div id="result-display"></div>
+                    </div>
+                </section>
+
+                <section id="operator">
+                    <h2>Operator</h2>
+                    <p>Operator digunakan untuk melakukan operasi pada variabel dan nilai.</p>
+                    <pre><code>// Operator Aritmatika
+let a = 10;
+let b = 5;
+let tambah = a + b;    // 15
+let kurang = a - b;    // 5
+let kali = a * b;      // 50
+let bagi = a / b;      // 2
+
+// Operator Perbandingan
+10 == "10"   // true (nilai sama)
+10 === "10"  // false (nilai dan tipe berbeda)
+10 != 5      // true
+10 > 5       // true
+
+// Operator Logika
+true && false  // false (AND)
+true || false  // true (OR)
+!true          // false (NOT)</code></pre>
+                    <h3 class="output-title">Demo Kalkulator Sederhana:</h3>
+                    <div class="output">
+                        <input type="number" id="num1" class="demo-input" placeholder="Angka 1" value="10">
+                        <input type="number" id="num2" class="demo-input" placeholder="Angka 2" value="5">
+                        <button class="demo-button" onclick="hitung()">Hitung (+)</button>
+                        <div id="hasil-hitung"></div>
+                    </div>
+                </section>
+
+                <section id="kondisi">
+                    <h2>Kondisi (If-Else)</h2>
+                    <p>Digunakan untuk membuat keputusan berdasarkan kondisi tertentu.</p>
+                    <pre><code>let nilai = 85;
+
+if (nilai >= 90) {
+    console.log("Grade: A");
+} else if (nilai >= 80) {
+    console.log("Grade: B");
+} else if (nilai >= 70) {
+    console.log("Grade: C");
+} else {
+    console.log("Grade: D");
+}</code></pre>
+                    <h3 class="output-title">Demo Cek Nilai:</h3>
+                    <div class="output">
+                        <input type="number" id="nilai-input" class="demo-input" placeholder="Masukkan nilai" max="100">
+                        <button class="demo-button" onclick="cekNilai()">Cek Grade</button>
+                        <div id="hasil-grade"></div>
+                    </div>
+                </section>
+
+                <section id="perulangan">
+                    <h2>Perulangan (Loop)</h2>
+                    <p>Digunakan untuk mengulang blok kode beberapa kali.</p>
+                    <pre><code>// For Loop
+for (let i = 1; i <= 5; i++) {
+    console.log("Iterasi ke-" + i);
+}
+
+// While Loop
+let count = 1;
+while (count <= 5) {
+    console.log("Count: " + count);
+    count++;
+}
+
+// For...of (untuk array)
+let buah = ["Apel", "Jeruk", "Mangga"];
+for (let item of buah) {
+    console.log(item);
+}</code></pre>
+                    <h3 class="output-title">Demo Perulangan:</h3>
+                    <div class="output">
+                        <button class="demo-button" onclick="demoLoop()">Jalankan Loop</button>
+                        <div id="hasil-loop"></div>
+                    </div>
+                </section>
+
+                <section id="fungsi">
+                    <h2>Fungsi (Function)</h2>
+                    <p>Fungsi adalah blok kode yang dapat dipanggil berkali-kali.</p>
+                    <pre><code>// Deklarasi fungsi
+function sapa(nama) {
+    return "Halo, " + nama + "!";
+}
+
+// Memanggil fungsi
+let pesan = sapa("Budi");
+console.log(pesan); // "Halo, Budi!"
+
+// Arrow Function (ES6)
+const tambah = (a, b) => a + b;
+console.log(tambah(5, 3)); // 8</code></pre>
+                    <h3 class="output-title">Demo Fungsi:</h3>
+                    <div class="output">
+                        <input type="text" id="nama-input" class="demo-input" placeholder="Masukkan nama">
+                        <button class="demo-button" onclick="sapaNama()">Sapa</button>
+                        <div id="hasil-sapa"></div>
+                    </div>
+                </section>
+
+                <section id="array">
+                    <h2>Array</h2>
+                    <p>Array adalah struktur data untuk menyimpan beberapa nilai dalam satu variabel.</p>
+                    <pre><code>// Membuat array
+let buah = ["Apel", "Jeruk", "Mangga"];
+
+// Mengakses elemen
+console.log(buah[0]); // "Apel"
+
+// Menambah elemen
+buah.push("Pisang");
+
+// Menghapus elemen terakhir
+buah.pop();
+
+// Method array penting
+buah.length;           // Panjang array
+buah.join(", ");      // Gabung jadi string
+buah.slice(0, 2);     // Ambil sebagian array</code></pre>
+                    <h3 class="output-title">Demo Array:</h3>
+                    <div class="output">
+                        <button class="demo-button" onclick="demoArray()">Tampilkan Array</button>
+                        <div id="hasil-array"></div>
+                    </div>
+                </section>
+
+                <section id="objek">
+                    <h2>Objek (Object)</h2>
+                    <p>Objek digunakan untuk menyimpan data dalam bentuk pasangan key-value.</p>
+                    <pre><code>// Membuat objek
+let mahasiswa = {
+    nama: "Budi",
+    umur: 20,
+    jurusan: "Informatika",
+    aktif: true
+};
+
+// Mengakses properti
+console.log(mahasiswa.nama);    // "Budi"
+console.log(mahasiswa["umur"]); // 20
+
+// Menambah properti
+mahasiswa.semester = 4;
+
+// Method dalam objek
+let mobil = {
+    merk: "Toyota",
+    warna: "Merah",
+    jalan: function() {
+        return this.merk + " sedang berjalan";
+    }
+};</code></pre>
+                    <h3 class="output-title">Demo Objek:</h3>
+                    <div class="output">
+                        <button class="demo-button" onclick="demoObjek()">Tampilkan Data Objek</button>
+                        <div id="hasil-objek"></div>
+                    </div>
+                </section>
+
+                <section id="dom">
+                    <h2>DOM Manipulation</h2>
+                    <p>DOM (Document Object Model) memungkinkan JavaScript memanipulasi HTML dan CSS.</p>
+                    <pre><code>// Mengambil elemen
+let element = document.getElementById("myId");
+let elements = document.getElementsByClassName("myClass");
+let element = document.querySelector(".myClass");
+
+// Mengubah konten
+element.innerHTML = "Teks baru";
+element.textContent = "Teks baru";
+
+// Mengubah style
+element.style.color = "red";
+element.style.fontSize = "20px";
+
+// Menambah/menghapus class
+element.classList.add("active");
+element.classList.remove("active");
+
+// Event listener
+element.addEventListener("click", function() {
+    alert("Diklik!");
+});</code></pre>
+                    <h3 class="output-title">Demo DOM:</h3>
+                    <div class="output">
+                        <p id="demo-text">Ini adalah teks yang bisa diubah</p>
+                        <button class="demo-button" onclick="ubahWarna()">Ubah Warna</button>
+                        <button class="demo-button" onclick="ubahTeks()">Ubah Teks</button>
+                    </div>
+                </section>
+
+                <section id="event">
+                    <h2>Event Handling</h2>
+                    <p>Event adalah aksi yang terjadi di halaman web, seperti klik, hover, atau input.</p>
+                    <pre><code>// Event onclick
+&lt;button onclick="alert('Hello!')"&gt;Klik Saya&lt;/button&gt;
+
+// Event listener
+let tombol = document.getElementById("myButton");
+tombol.addEventListener("click", function() {
+    console.log("Button diklik!");
+});
+
+// Event-event umum
+onclick      // Saat diklik
+onmouseover  // Saat mouse di atas
+onmouseout   // Saat mouse keluar
+onchange     // Saat nilai berubah
+onkeypress   // Saat tombol keyboard ditekan
+onload       // Saat halaman selesai dimuat</code></pre>
+                    <h3 class="output-title">Demo Event:</h3>
+                    <div class="output">
+                        <button class="demo-button" id="event-btn">Hover atau Klik Saya!</button>
+                        <div id="event-result"></div>
+                    </div>
+                </section>
+
+                <section class="more-info">
+                    <h3>Ingin Belajar Lebih Lengkap?</h3>
+                    <p>Materi di atas adalah dasar-dasar JavaScript. Untuk panduan yang lebih mendalam dan interaktif,
+                        kunjungi referensi terpercaya berikut:</p>
+                    <a href="https://www.w3schools.com/js/" target="_blank" rel="noopener noreferrer"><strong>Lihat
+                            Tutorial JavaScript Lengkap di W3Schools &rarr;</strong></a><br><br>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"
+                        rel="noopener noreferrer"><strong>MDN Web Docs - JavaScript &rarr;</strong></a>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo Variabel
+        function demoVariabel() {
+            let nama = "Budi";
+            const umur = 25;
+            let isActive = true;
+
+            document.getElementById('result-display').innerHTML = `
+                <strong>Hasil:</strong><br>
+                Nama: ${nama}<br>
+                Umur: ${umur}<br>
+                Status Aktif: ${isActive}
+            `;
+        }
+
+        // Demo Kalkulator
+        function hitung() {
+            let num1 = parseFloat(document.getElementById('num1').value) || 0;
+            let num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let hasil = num1 + num2;
+
+            document.getElementById('hasil-hitung').innerHTML = `
+                <strong>Hasil: ${num1} + ${num2} = ${hasil}</strong>
+            `;
+        }
+
+        // Demo Cek Nilai
+        function cekNilai() {
+            let nilai = parseInt(document.getElementById('nilai-input').value);
+            let grade;
+
+            if (isNaN(nilai)) {
+                grade = "Mohon masukkan angka yang valid.";
+            } else if (nilai >= 90) {
+                grade = "A - Sangat Baik!";
+            } else if (nilai >= 80) {
+                grade = "B - Baik!";
+            } else if (nilai >= 70) {
+                grade = "C - Cukup";
+            } else if (nilai >= 60) {
+                grade = "D - Kurang";
+            } else {
+                grade = "E - Gagal";
+            }
+
+            document.getElementById('hasil-grade').innerHTML = `
+                <strong>Nilai ${nilai} = Grade ${grade}</strong>
+            `;
+        }
+
+        // Demo Loop
+        function demoLoop() {
+            let hasil = "<strong>Hasil Perulangan:</strong><br>";
+            for (let i = 1; i <= 5; i++) {
+                hasil += `Iterasi ke-${i}<br>`;
+            }
+            document.getElementById('hasil-loop').innerHTML = hasil;
+        }
+
+        // Demo Fungsi
+        function sapaNama() {
+            let nama = document.getElementById('nama-input').value;
+            if (nama) {
+                let pesan = `Halo, ${nama}! Selamat datang di pembelajaran JavaScript! 👋`;
+                document.getElementById('hasil-sapa').innerHTML = `<strong>${pesan}</strong>`;
+            } else {
+                alert("Masukkan nama terlebih dahulu!");
+            }
+        }
+
+        // Demo Array
+        function demoArray() {
+            let buah = ["Apel", "Jeruk", "Mangga", "Pisang"];
+            let hasil = `<strong>Array Buah:</strong><br>`;
+            hasil += `Jumlah: ${buah.length}<br>`;
+            hasil += `Elemen: ${buah.join(", ")}<br>`;
+            hasil += `<div class="list-demo"><ul>`;
+            for (let i = 0; i < buah.length; i++) {
+                hasil += `<li>Index ${i}: ${buah[i]}</li>`;
+            }
+            hasil += `</ul></div>`;
+            document.getElementById('hasil-array').innerHTML = hasil;
+        }
+
+        // Demo Objek
+        function demoObjek() {
+            let mahasiswa = {
+                nama: "Budi Santoso",
+                umur: 20,
+                jurusan: "Teknik Informatika",
+                semester: 4,
+                aktif: true
+            };
+
+            let hasil = "<strong>Data Mahasiswa:</strong><br>";
+            hasil += `Nama: ${mahasiswa.nama}<br>`;
+            hasil += `Umur: ${mahasiswa.umur} tahun<br>`;
+            hasil += `Jurusan: ${mahasiswa.jurusan}<br>`;
+            hasil += `Semester: ${mahasiswa.semester}<br>`;
+            hasil += `Status: ${mahasiswa.aktif ? "Aktif" : "Tidak Aktif"}`;
+
+            document.getElementById('hasil-objek').innerHTML = hasil;
+        }
+
+        // Demo DOM
+        let warna = ["#e74c3c", "#3498db", "#2ecc71", "#f1c40f", "#9b59b6"];
+        let indexWarna = 0;
+
+        function ubahWarna() {
+            let element = document.getElementById('demo-text');
+            element.style.color = warna[indexWarna];
+            indexWarna = (indexWarna + 1) % warna.length;
+        }
+
+        function ubahTeks() {
+            let element = document.getElementById('demo-text');
+            element.textContent = "Teks telah diubah menggunakan JavaScript! 🎉";
+            element.style.fontWeight = "bold";
+        }
+
+        // Demo Event
+        let eventBtn = document.getElementById('event-btn');
+        let eventResult = document.getElementById('event-result');
+
+        eventBtn.addEventListener('click', function () {
+            eventResult.innerHTML = "<strong>✅ Button diklik!</strong>";
+        });
+
+        eventBtn.addEventListener('mouseover', function () {
+            eventResult.innerHTML = "<strong>🖱️ Mouse ada di atas button!</strong>";
+        });
+
+        eventBtn.addEventListener('mouseout', function () {
+            eventResult.innerHTML = "<strong>👋 Mouse keluar dari button!</strong>";
+        });
+    </script>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

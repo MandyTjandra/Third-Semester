@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Dasar HTML</title>
+    <link rel="icon" type="image/png" href="Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="materi-body">
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Hobi Ngoding</a>
+            
+            <nav>
+                <ul>
+                    <li><a href="https://www.linkedin.com/in/mandytjandra" target="_blank">About Me</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html" class="btn-register">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="materi-wrapper">
+        <a href="index.html" class="back-to-home-dark" title="Kembali ke Halaman Utama">
+            <i class="fas fa-arrow-left"></i> Kembali ke Home
+        </a>
+        <div class="container">
+            <header class="materi-header">
+                <h1>Materi Dasar HTML</h1>
+                <p>Pelajari fondasi utama dalam membangun struktur halaman web.</p>
+            </header>
+
+            <div class="materi-content">
+                <section id="struktur-dasar">
+                    <h2>Struktur Dasar Dokumen</h2>
+                    <p>Setiap file HTML memiliki struktur dasar yang wajib ada. Ini memberitahu browser bahwa ini adalah
+                        dokumen HTML dan mendefinisikan bagian <code>&lt;head&gt;</code> (info halaman) dan
+                        <code>&lt;body&gt;</code> (konten halaman).
+                    </p>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+    &lt;title&gt;Judul Halaman Web&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Konten website ditulis di sini --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </section>
+
+                <section id="heading-paragraf">
+                    <h2>Heading & Paragraf</h2>
+                    <p>Gunakan <code>&lt;h1&gt;</code> sampai <code>&lt;h6&gt;</code> untuk judul dan
+                        <code>&lt;p&gt;</code> untuk teks biasa.
+                    </p>
+                    <pre><code>&lt;h1&gt;Ini adalah Judul Utama&lt;/h1&gt;
+&lt;h2&gt;Ini Sub-Judul&lt;/h2&gt;
+&lt;p&gt;Ini adalah sebuah paragraf teks biasa.&lt;/p&gt;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <h1>Ini adalah Judul Utama</h1>
+                        <h2>Ini Sub-Judul</h2>
+                        <p>Ini adalah sebuah paragraf teks biasa.</p>
+                    </div>
+                </section>
+
+                <section id="link">
+                    <h2>Link (Hyperlink)</h2>
+                    <p>Gunakan tag <code>&lt;a&gt;</code> dengan atribut <code>href</code> untuk membuat link.</p>
+                    <pre><code>&lt;a href="https://www.google.com"&gt;Kunjungi Google&lt;/a&gt;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Kunjungi Google</a>
+                    </div>
+                </section>
+
+                <section id="gambar">
+                    <h2>Gambar</h2>
+                    <p>Gunakan tag <code>&lt;img&gt;</code> untuk menampilkan gambar dan tag <code>&lt;p&gt;</code>
+                        dengan class khusus untuk keterangan.</p>
+
+                    <pre><code>&lt;img src="Logo.png" alt="Gambar Contoh"&gt;
+&lt;p class="image-caption"&gt;Yes, itu logoku&lt;/p&gt;</code></pre>
+
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <img src="Logo.png" alt="Gambar Contoh" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+                        <p class="image-caption">Yes, itu logoku! 🤭☝️</p>
+                    </div>
+                </section>
+
+                <section id="list">
+                    <h2>List (Daftar)</h2>
+                    <p>Gunakan <code>&lt;ul&gt;</code> untuk daftar tak berurutan (bullet) dan <code>&lt;ol&gt;</code>
+                        untuk daftar berurutan (angka).</p>
+                    <pre><code>&lt;h4&gt;Daftar Buah:&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Apel&lt;/li&gt;
+    &lt;li&gt;Jeruk&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Langkah-langkah:&lt;/h4&gt;
+&lt;ol&gt;
+    &lt;li&gt;Langkah Pertama&lt;/li&gt;
+    &lt;li&gt;Langkah Kedua&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <h4>Daftar Buah:</h4>
+                        <ul>
+                            <li>Apel</li>
+                            <li>Jeruk</li>
+                        </ul>
+                        <h4>Langkah-langkah:</h4>
+                        <ol>
+                            <li>Langkah Pertama</li>
+                            <li>Langkah Kedua</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section id="tabel">
+                    <h2>Tabel</h2>
+                    <p>Gunakan <code>&lt;table&gt;</code> untuk membuat tabel, <code>&lt;tr&gt;</code> untuk baris,
+                        <code>&lt;th&gt;</code> untuk header, dan <code>&lt;td&gt;</code> untuk sel data.
+                    </p>
+                    <pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nama&lt;/th&gt;
+        &lt;th&gt;Kota&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Budi&lt;/td&gt;
+        &lt;td&gt;Jakarta&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <table>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Kota</th>
+                            </tr>
+                            <tr>
+                                <td>Budi</td>
+                                <td>Jakarta</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="form">
+                    <h2>Form</h2>
+                    <p>Form digunakan untuk mengumpulkan input dari pengguna. Dibuat dengan tag
+                        <code>&lt;form&gt;</code> dan berbagai jenis elemen <code>&lt;input&gt;</code>.
+                    </p>
+                    <pre><code>&lt;form&gt;
+    &lt;label for="nama"&gt;Nama:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="text" id="nama" name="nama"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;input type="submit" value="Kirim"&gt;
+&lt;/form&gt;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <form onsubmit="event.preventDefault(); alert('Form dikirim!');">
+                            <label for="nama-demo">Nama:</label><br>
+                            <input type="text" id="nama-demo" name="nama"><br><br>
+                            <label for="email-demo">Email:</label><br>
+                            <input type="email" id="email-demo" name="email"><br><br>
+                            <input type="submit" value="Kirim">
+                        </form>
+                    </div>
+                </section>
+
+                <section id="iframe">
+                    <h2>IFrame</h2>
+                    <p>IFrame (Inline Frame) digunakan untuk menampilkan halaman web lain di dalam halaman web Anda.</p>
+                    <pre><code>&lt;iframe src="https://www.openstreetmap.org/export/embed.html" width="100%" height="250"&gt;&lt;/iframe&gt;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <iframe src="https://www.openstreetmap.org/export/embed.html" style="border:1px solid black;"
+                            width="100%" height="250" title="Peta OpenStreetMap"></iframe>
+                    </div>
+                </section>
+
+                <section class="more-info">
+                    <h3>Ingin Belajar Lebih Lengkap?</h3>
+                    <p>Materi di atas adalah dasar-dasar HTML. Untuk panduan yang lebih mendalam dan interaktif, Anda
+                        bisa mengunjungi referensi terpercaya di bawah ini.</p>
+                    <a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer"><strong>Lihat
+                            Tutorial HTML Lengkap di W3Schools &rarr;</strong></a>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

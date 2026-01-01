@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Logo.png">
+    <title>Materi Dasar CSS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="materi-body">
+
+    <div class="materi-wrapper">
+        <a href="index.html" class="back-to-home-dark" title="Kembali ke Halaman Utama">
+            <i class="fas fa-arrow-left"></i> Kembali ke Home
+        </a>
+        <div class="container">
+            <header class="materi-header">
+                <h1>Materi Dasar CSS</h1>
+                <p>Pelajari cara menghias dan menata halaman web Anda menjadi lebih menarik.</p>
+            </header>
+
+            <div class="materi-content">
+                <section id="pengenalan-css">
+                    <h2>Apa itu CSS?</h2>
+                    <p>CSS adalah singkatan dari <strong>Cascading Style Sheets</strong>. Jika HTML adalah kerangka
+                        sebuah website, maka CSS adalah "kulit"-nya. CSS digunakan untuk mengatur tampilan visual elemen
+                        HTML, seperti warna, ukuran font, layout, dan banyak lagi.</p>
+                </section>
+
+                <section id="cara-menambahkan-css">
+                    <h2>Cara Menambahkan CSS</h2>
+                    <p>Ada tiga cara untuk menambahkan CSS ke dokumen HTML:</p>
+
+                    <h3 style="font-size: 1.3em; color: #0056b3; margin-top: 20px;">1. External CSS (Terbaik) ⭐</h3>
+                    <p>Menulis CSS di file terpisah dan menghubungkannya ke HTML.</p>
+                    <pre><code>&lt;!-- Di dalam &lt;head&gt; HTML --&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+
+                    <h3 style="font-size: 1.3em; color: #0056b3; margin-top: 20px;">2. Internal CSS</h3>
+                    <p>Menulis CSS di dalam tag <code>&lt;style&gt;</code> di HTML.</p>
+                    <pre><code>&lt;style&gt;
+  p {
+    color: blue;
+  }
+&lt;/style&gt;</code></pre>
+
+                    <h3 style="font-size: 1.3em; color: #0056b3; margin-top: 20px;">3. Inline CSS</h3>
+                    <p>Menambahkan style langsung ke elemen HTML.</p>
+                    <pre><code>&lt;p style="color: blue;"&gt;Teks biru&lt;/p&gt;</code></pre>
+                </section>
+
+                <section id="sintaks-selector">
+                    <h2>Sintaks dan Selector</h2>
+                    <p>Aturan CSS terdiri dari <strong>selector</strong> dan <strong>blok deklarasi</strong>. Selector
+                        menargetkan elemen HTML yang ingin Anda gayakan.</p>
+                    <pre><code>/* Selector elemen */
+p {
+  color: blue;
+  font-size: 16px;
+}
+
+/* Selector class */
+.kotak {
+  background-color: yellow;
+}
+
+/* Selector ID */
+#header {
+  padding: 20px;
+}
+
+/* Selector multiple */
+h1, h2, h3 {
+  font-family: Arial, sans-serif;
+}</code></pre>
+                    <h3 class="output-title">Jenis-jenis Selector:</h3>
+                    <div class="output">
+                        <ul>
+                            <li><code>p</code> → Semua elemen &lt;p&gt;</li>
+                            <li><code>.classname</code> → Semua elemen dengan class="classname"</li>
+                            <li><code>#idname</code> → Elemen dengan id="idname"</li>
+                            <li><code>*</code> → Semua elemen</li>
+                            <li><code>div p</code> → Semua &lt;p&gt; di dalam &lt;div&gt;</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="warna">
+                    <h2>Warna (Colors)</h2>
+                    <p>Ada beberapa cara untuk menentukan warna di CSS:</p>
+                    <pre><code>/* Nama warna */
+color: red;
+
+/* Hexadecimal */
+color: #0056b3;
+
+/* RGB */
+color: rgb(0, 86, 179);
+
+/* RGBA (dengan transparansi) */
+color: rgba(0, 86, 179, 0.5);</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <style>
+                            .color-demo {
+                                display: inline-block;
+                                padding: 10px 20px;
+                                margin: 5px;
+                                border-radius: 5px;
+                                font-weight: 600;
+                            }
+                        </style>
+                        <span class="color-demo" style="background-color: red; color: white;">red</span>
+                        <span class="color-demo" style="background-color: #0056b3; color: white;">#0056b3</span>
+                        <span class="color-demo" style="background-color: rgb(0, 86, 179); color: white;">rgb(0, 86,
+                            179)</span>
+                        <span class="color-demo" style="background-color: rgba(0, 86, 179, 0.5); color: white;">rgba
+                            (50%)</span>
+                    </div>
+                </section>
+
+                <section id="font-text">
+                    <h2>Properti Font & Teks</h2>
+                    <p>CSS menyediakan banyak properti untuk mengatur tampilan teks.</p>
+                    <pre><code>.teks-styling {
+  color: #0056b3;                 /* Warna teks */
+  font-size: 20px;                /* Ukuran font */
+  font-family: Georgia, serif;    /* Tipe font */
+  font-weight: bold;              /* Ketebalan font */
+  text-align: center;             /* Perataan teks */
+  text-decoration: underline;     /* Garis bawah */
+  text-transform: uppercase;      /* Huruf kapital */
+  line-height: 1.5;               /* Jarak antar baris */
+}</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <style>
+                            .output .teks-styling {
+                                color: #0056b3;
+                                font-size: 20px;
+                                font-family: Georgia, serif;
+                                font-weight: bold;
+                                text-align: center;
+                            }
+                        </style>
+                        <p class="teks-styling">Paragraf ini memiliki gaya khusus.</p>
+                    </div>
+                </section>
+
+                <section id="box-model">
+                    <h2>Konsep Box Model</h2>
+                    <p>Setiap elemen HTML dapat dianggap sebagai sebuah "kotak". Box Model menjelaskan bagaimana kotak
+                        ini disusun, yang terdiri dari: <strong>Content, Padding, Border,</strong> dan
+                        <strong>Margin</strong>.
+                    </p>
+                    <pre><code>.kotak-contoh {
+  width: 200px;                   /* Lebar konten */
+  padding: 20px;                  /* Jarak di dalam border */
+  border: 5px solid red;          /* Garis tepi */
+  margin: 30px;                   /* Jarak di luar border */
+  background-color: lightblue;    /* Warna latar */
+}</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <style>
+                            .kotak-contoh-wrapper {
+                                background-color: #fce4e4;
+                                padding: 30px;
+                            }
+
+                            .kotak-contoh {
+                                width: 200px;
+                                padding: 20px;
+                                border: 5px solid red;
+                                background-color: lightblue;
+                                text-align: center;
+                            }
+                        </style>
+                        <div class="kotak-contoh-wrapper">
+                            <div class="kotak-contoh">
+                                Content (200px)
+                            </div>
+                        </div>
+                        <small>Area merah muda adalah visualisasi dari <strong>margin</strong> (30px).</small>
+                    </div>
+                </section>
+
+                <section id="display">
+                    <h2>Display Property</h2>
+                    <p>Properti <code>display</code> mengatur bagaimana elemen ditampilkan di halaman.</p>
+                    <pre><code>/* Block: Mengambil lebar penuh */
+display: block;
+
+/* Inline: Hanya mengambil ruang yang diperlukan */
+display: inline;
+
+/* Inline-block: Gabungan inline & block */
+display: inline-block;
+
+/* None: Menyembunyikan elemen */
+display: none;</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <style>
+                            .display-demo span {
+                                padding: 10px;
+                                margin: 5px;
+                                background-color: #007bff;
+                                color: white;
+                            }
+
+                            .block-demo {
+                                display: block;
+                            }
+
+                            .inline-demo {
+                                display: inline;
+                            }
+
+                            .inline-block-demo {
+                                display: inline-block;
+                            }
+                        </style>
+                        <div class="display-demo">
+                            <span class="block-demo">Block</span>
+                            <span class="inline-demo">Inline 1</span>
+                            <span class="inline-demo">Inline 2</span>
+                            <br><br>
+                            <span class="inline-block-demo">Inline-Block 1</span>
+                            <span class="inline-block-demo">Inline-Block 2</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="flexbox">
+                    <h2>Flexbox Layout</h2>
+                    <p>Flexbox adalah sistem layout yang powerful untuk mengatur elemen secara fleksibel.</p>
+                    <pre><code>.container {
+  display: flex;
+  justify-content: center;  /* Horizontal alignment */
+  align-items: center;      /* Vertical alignment */
+  gap: 10px;                /* Jarak antar item */
+}
+
+/* Contoh penggunaan */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}</code></pre>
+                    <h3 class="output-title">Hasil Tampilan:</h3>
+                    <div class="output">
+                        <style>
+                            .flex-demo {
+                                display: flex;
+                                justify-content: space-between;
+                                gap: 10px;
+                            }
+
+                            .flex-item {
+                                background-color: #007bff;
+                                color: white;
+                                padding: 20px;
+                                border-radius: 5px;
+                                flex: 1;
+                                text-align: center;
+                            }
+                        </style>
+                        <div class="flex-demo">
+                            <div class="flex-item">Box 1</div>
+                            <div class="flex-item">Box 2</div>
+                            <div class="flex-item">Box 3</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="position">
+                    <h2>Position Property</h2>
+                    <p>Properti <code>position</code> mengatur posisi elemen di halaman.</p>
+                    <pre><code>/* Static: Posisi default */
+position: static;
+
+/* Relative: Relatif terhadap posisi normal */
+position: relative;
+top: 10px;
+left: 20px;
+
+/* Absolute: Relatif terhadap parent */
+position: absolute;
+
+/* Fixed: Tetap di layar saat scroll */
+position: fixed;
+
+/* Sticky: Gabungan relative & fixed */
+position: sticky;
+top: 0;</code></pre>
+                </section>
+
+                <section id="responsive">
+                    <h2>Responsive Design (Media Queries)</h2>
+                    <p>Media queries membuat website responsif di berbagai ukuran layar.</p>
+                    <pre><code>/* Desktop first approach */
+.container {
+  width: 1000px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .text {
+    font-size: 14px;
+  }
+}</code></pre>
+                </section>
+
+                <section id="transition-animation">
+                    <h2>Transition & Animation</h2>
+                    <p>Membuat efek transisi dan animasi pada elemen.</p>
+                    <pre><code>/* Transition */
+.button {
+  background-color: blue;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: red;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.element {
+  animation: slideIn 1s ease-in-out;
+}</code></pre>
+                    <h3 class="output-title">Demo Interaktif:</h3>
+                    <div class="output">
+                        <style>
+                            .demo-button {
+                                background-color: #007bff;
+                                color: white;
+                                padding: 15px 30px;
+                                border: none;
+                                border-radius: 5px;
+                                font-size: 16px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                            }
+
+                            .demo-button:hover {
+                                background-color: #0056b3;
+                                transform: translateY(-3px);
+                                box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+                            }
+                        </style>
+                        <button class="demo-button">Hover Saya!</button>
+                    </div>
+                </section>
+
+                <section class="more-info">
+                    <h3>Ingin Belajar Lebih Lengkap?</h3>
+                    <p>Materi di atas adalah dasar-dasar CSS. Untuk panduan yang lebih mendalam, terutama tentang
+                        layout Flexbox dan Grid, kunjungi referensi terpercaya berikut:</p>
+                    <a href="https://www.w3schools.com/css/" target="_blank" rel="noopener noreferrer"><strong>Lihat
+                            Tutorial CSS Lengkap di W3Schools &rarr;</strong></a><br><br>
+                    <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank"
+                        rel="noopener noreferrer"><strong>Panduan Flexbox Lengkap &rarr;</strong></a>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

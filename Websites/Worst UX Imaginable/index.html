@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Alarm Setter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden; /* No scrollbars! */
+            margin: 0;
+            cursor: ew-resize; /* Hint that you can drag horizontally */
+        }
+        
+        /* The 3D scene will be our background */
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* All UI elements float on top */
+        #ui-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none; /* Allow clicks to go "through" to the drag detector */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* <-- MODIFIED: Kembali ke space-between */
+            align-items: center;
+            padding: 2rem;
+        }
+
+        /* The "helpful" instruction text */
+        #instructions {
+            font-size: 1.1rem;
+            color: #555; /* Low contrast for bad UX */
+            text-align: center;
+        }
+
+        /* The display for the selected date/time */
+        #time-display {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            /* margin-top: 1rem; <-- REMOVED */
+        }
+
+        #selected-time-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+
+        #selected-time {
+            font-size: 1.5rem;
+            color: #ddd; /* Also not full white */
+            font-weight: 300;
+        }
+        
+        /* The current time display */
+        #current-time {
+            font-size: 0.9rem;
+            color: #444;
+            /* margin-top: 1rem; <-- REMOVED */
+        }
+
+        /* The main attraction: our evil button */
+        #set-alarm-btn {
+            position: absolute;
+            z-index: 10;
+            background: linear-gradient(145deg, #ff005d, #c900ff);
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* A pill shape */
+            cursor: pointer;
+            pointer-events: all; /* This ONE can be clicked */
+            transition: all 0.1s ease-out; /* Makes the "running" look frantic */
+            box-shadow: 0 4px 20px rgba(255, 0, 150, 0.5);
+            
+            /* Start it in the bottom right */
+            bottom: 2rem;
+            right: 2rem;
+        }
+
+        /* The message box for when you FINALLY click it */
+        #message-box {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 100;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #111;
+            border: 1px solid #444;
+            color: #eee;
+            padding: 2rem 3rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        #message-box-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            color: #777;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            pointer-events: all;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scene-container"></div>
+
+    <div id="ui-container">
+        <div id="instructions">
+            <p>Drag horizontally to align with the cosmos.</p>
+            <p>Time is relative. Good luck.</p>
+        </div>
+
+        <div class="flex flex-col items-center gap-4"> <div id="time-display">
+                <div id="selected-time-label">Selected Alarm Time</div>
+                <div id="selected-time">Loading...</div>
+            </div>
+
+            <div id="current-time"></div>
+        </div>
+    </div>
+
+    <button id="set-alarm-btn">Set Alarm</button>
+
+    <div id="message-box">
+        <button id="message-box-close" onclick="hideMessage()">&times;</button>
+        <h2 class="text-xl font-bold mb-2">Alarm Set!</h2>
+        <p>An alarm has been successfully set for the time you selected.</p>
+        <p class="text-xs text-gray-500 mt-4">(Probably)</p>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        let scene, camera, renderer;
+        let sun, earth, pointLight;
+        
+        let isDragging = false;
+        let startMouseX = 0;
+        let currentDragOffset = 0; // Total pixels dragged
+        
+        const startDate = new Date();
+        let selectedDate = new Date(startDate.getTime());
+        
+        const ORBIT_RADIUS = 10;
+        // Sensitivity: 1 pixel drag = 30 minutes
+        const PIXELS_PER_MINUTE = 1 / 30; 
+
+        // --- UI Elements ---
+        const selectedTimeEl = document.getElementById('selected-time');
+        const currentTimeEl = document.getElementById('current-time');
+        const alarmButton = document.getElementById('set-alarm-btn');
+        const messageBox = document.getElementById('message-box');
+        
+        // --- Global Functions for Message Box ---
+        // We have to attach them to window to be accessible from inline onclick
+        window.hideMessage = () => {
+            messageBox.style.display = 'none';
+        }
+
+        // --- Core Functions ---
+        
+        function init() {
+            // 1. Scene
+            scene = new THREE.Scene();
+
+            // 2. Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 15;
+            camera.position.y = 5;
+            camera.lookAt(0, 0, 0);
+
+            // 3. Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000); // Black void
+            document.getElementById('scene-container').appendChild(renderer.domElement);
+
+            // 4. Lights
+            // Ambient light so we can see the "night" side a little
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.2); // Very dim
+            scene.add(ambientLight);
+
+            // The Sun is the main light source
+            pointLight = new THREE.PointLight(0xffffee, 3, 100);
+            pointLight.position.set(0, 0, 0);
+            scene.add(pointLight);
+
+            // 5. Objects
+            // Sun
+            const sunGeo = new THREE.SphereGeometry(1, 32, 32);
+            const sunMat = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // Basic material, glows
+            sun = new THREE.Mesh(sunGeo, sunMat);
+            scene.add(sun);
+
+            // Earth
+            const earthGeo = new THREE.SphereGeometry(0.5, 32, 32);
+            const earthMat = new THREE.MeshStandardMaterial({ color: 0x0077ff }); // Standard, reacts to light
+            earth = new THREE.Mesh(earthGeo, earthMat);
+            scene.add(earth);
+
+            // 6. Initial Update
+            updateDateTime(0); // Set initial time
+            updateEarthPosition();
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000); // Update current time clock
+
+            // 7. Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            // Drag listeners
+            window.addEventListener('mousedown', onMouseDown);
+            window.addEventListener('touchstart', onTouchStart, { passive: false });
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('touchmove', onTouchMove, { passive: false });
+            window.addEventListener('mouseup', onMouseUp);
+            window.addEventListener('touchend', onMouseUp);
+
+            // Button listener
+            alarmButton.addEventListener('mouseover', runButtonRun);
+            alarmButton.addEventListener('click', setAlarm);
+
+            // 8. Start Animation
+            animate();
+        }
+        
+        // --- Event Handlers ---
+
+        function onMouseDown(event) {
+            isDragging = true;
+            startMouseX = event.clientX;
+        }
+
+        function onTouchStart(event) {
+            isDragging = true;
+            startMouseX = event.touches[0].clientX;
+        }
+        
+        function onMouseMove(event) {
+            if (!isDragging) return;
+            const deltaX = event.clientX - startMouseX;
+            updateDateTime(deltaX);
+        }
+        
+        function onTouchMove(event) {
+            if (!isDragging) return;
+            const deltaX = event.touches[0].clientX - startMouseX;
+            updateDateTime(deltaX);
+        }
+
+        function onMouseUp(event) {
+            if (!isDragging) return;
+            isDragging = false;
+            // "Lock in" the drag offset
+            const finalX = event.clientX || (event.changedTouches && event.changedTouches[0].clientX);
+            if (finalX) { 
+                 currentDragOffset += finalX - startMouseX;
+            }
+        }
+
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Bad UX Logic ---
+
+        function runButtonRun() {
+            const viewportWidth = window.innerWidth - alarmButton.offsetWidth;
+            const viewportHeight = window.innerHeight - alarmButton.offsetHeight;
+            
+            const newX = Math.random() * viewportWidth;
+            const newY = Math.random() * viewportHeight;
+
+            alarmButton.style.position = 'absolute'; 
+            alarmButton.style.left = `${newX}px`;
+            alarmButton.style.top = `${newY}px`;
+            alarmButton.style.right = 'auto';
+            alarmButton.style.bottom = 'auto';
+        }
+        
+        function setAlarm() {
+            // It finally got clicked!
+            messageBox.style.display = 'block';
+            // Stop it from running away
+            alarmButton.removeEventListener('mouseover', runButtonRun);
+            // ... and put it back somewhere sane
+            alarmButton.style.left = 'auto';
+            alarmButton.style.top = 'auto';
+            alarmButton.style.right = '2rem';
+            alarmButton.style.bottom = '2rem';
+        }
+
+        // --- Update Logic ---
+
+        function updateDateTime(dragDelta) {
+            // Total minutes passed = (total drag offset + current drag) / sensitivity
+            const totalMinutesOffset = (currentDragOffset + dragDelta) / PIXELS_PER_MINUTE;
+            
+            // Calculate new date
+            selectedDate = new Date(startDate.getTime() + (totalMinutesOffset * 60000));
+            
+            // Update UI
+            selectedTimeEl.textContent = selectedDate.toLocaleString(undefined, {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Update 3D model
+            updateEarthPosition();
+        }
+        
+        function updateEarthPosition() {
+            // 1. Orbital Position (Date)
+            const dayOfYear = (selectedDate - new Date(selectedDate.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24);
+            const orbitAngle = (dayOfYear / 365.25) * 2 * Math.PI;
+            
+            earth.position.x = Math.cos(orbitAngle) * ORBIT_RADIUS;
+            earth.position.z = Math.sin(orbitAngle) * ORBIT_RADIUS;
+
+            // 2. Axial Rotation (Time)
+            const minutesInDay = (selectedDate.getHours() * 60) + selectedDate.getMinutes();
+            const dayFraction = minutesInDay / (24 * 60);
+            const rotationAngle = dayFraction * 2 * Math.PI;
+            
+            earth.rotation.y = rotationAngle;
+        }
+
+        function updateCurrentTime() {
+            currentTimeEl.textContent = `Current Time: ${new Date().toLocaleString()}`;
+        }
+
+        // --- Animation Loop ---
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Subtle rotation for visual flair, completely unrelated to selected time
+            sun.rotation.y += 0.001; 
+            
+            renderer.render(scene, camera);
+        }
+
+        // Let's go!
+        init();
+
+    </script>
+</body>
+</html>
