@@ -50,9 +50,9 @@ A satirical project designed to break every rule of User Experience (UX). Instea
 
 ## 🚀 How to Run / Live Demos
 
-1. **Hobi Ngoding**: [Link will be added here]
-2. **Bouncing Ball**: [Link will be added here]
-3. **Cosmic Alarm Setter**: [Link will be added here]
+1. **Hobi Ngoding**: https://mandytjandra.github.io/Third-Semester/Websites/Web%20Programming/
+2. **Bouncing Ball**: https://mandytjandra.github.io/Third-Semester/Websites/Game%20Bola%20Mantul/
+3. **Cosmic Alarm Setter**: https://mandytjandra.github.io/Third-Semester/Websites/Worst%20UX%20Imaginable/
 
 ---
 
