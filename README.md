@@ -44,19 +44,13 @@ This folder contains **3 distinct web projects**, ranging from educational tools
 
 A website designed to teach a specific topic.
 
-* **Focus:** Clean layout, information structure, and accessibility.
-
 ### 2️⃣ Web Game 🕹️
 
 A browser-based game playable directly on the web.
 
-* **Focus:** Interactive DOM manipulation and JavaScript logic.
-
 ### 3️⃣ The "Worst UX" Website (Joke Project) 🤪
 
 A satirical project designed to have the **worst possible User Experience (UX)**.
-
-* **Focus:** Purposefully breaking design rules (confusing navigation, bad colors, pop-ups) to understand *what not to do*.
 
 ---
 
